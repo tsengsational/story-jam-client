@@ -1,5 +1,5 @@
 import React from 'react';
-import CardData from './CardData'
+
 
 export default const Card = (props) => {
   const headerName = props.flipped ? props.card.flipped_name : props.card.name
