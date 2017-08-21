@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default const Spread = (props) => {
+const Spread = (props) => {
   const cards = props.cards
   return(
     <div>
@@ -12,3 +12,5 @@ export default const Spread = (props) => {
     </div>
   )
 }
+
+export default Spread
