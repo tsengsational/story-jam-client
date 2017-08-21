@@ -1,9 +1,9 @@
 import React from 'react';
 
 
-export default const Card = (props) => {
-  const headerName = props.flipped ? props.card.flipped_name : props.card.name
-  const headerDescription = props.flipped ? props.card.flipped_description : props.card.description
+const Card = (props) => {
+  const headerName = props.card.flipped ? props.card.data.flipped_name : props.card.data.name
+  const headerDescription = props.card.flipped ? props.card.data.flipped_description : props.card.data.description
   return (
     <div>
       <h3>{headerName}</h3>
@@ -11,3 +11,5 @@ export default const Card = (props) => {
     </div>
   )
 }
+
+export default Card

@@ -1,14 +1,19 @@
 import React from 'react';
+import Card from './Card';
 
 const Spread = (props) => {
-  const cards = props.cards
+  const cards = props.spread.cards
+  const cardList = cards.map((card) => {return <div><Card card={card} /></div>} )
+
   return(
     <div>
       <h3>{props.spread.title}</h3>
-      <h4>{props.type}</h4>
+      <h4>{props.spread.type}</h4>
       <p>{props.spread.description}</p>
 
-
+      <div>
+      {cardList}
+      </div>
     </div>
   )
 }
