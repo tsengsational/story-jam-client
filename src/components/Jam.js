@@ -1,5 +1,6 @@
 import React from 'react'
 import Spread from './Spread'
+import JamForm from './JamForm'
 
 export default class Jam extends React.Component {
   constructor(props){
@@ -10,7 +11,9 @@ export default class Jam extends React.Component {
         title: 'Title',
         description: 'Description',
         type: 'Once Upon a Time'
-      }
+      },
+      name: '',
+      description: ''
     }
   }
 
@@ -34,6 +37,21 @@ export default class Jam extends React.Component {
       //   set up  const deck = [...nextProps.deck]
     }
     // NOTE call createSpread after jam is in state if jam does not have a spread
+  }
+
+  onChangeJamField = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    }, ()=>{console.log(this.state)})
+  }
+
+  onChangeSpreadField = (event) => {
+    this.setState({
+      spread:{
+        ...this.state.spread,
+        [event.target.name]: event.target.value
+      }
+    }, ()=>{console.log(this.state)})
   }
 
   pullCard = (deck) => {
@@ -63,10 +81,18 @@ export default class Jam extends React.Component {
     )
   }
 
+  onSubmitJamForm = (event) => {
+    const deck = [...this.props.deck]
+    this.createSpread(deck)
+  }
   render(){
     // this.dealCards()
     return(
       <div>
+        <JamForm onChangeJamField={this.onChangeJamField}
+        onChangeSpreadField={this.onChangeSpreadField}
+        types={this.props.types}
+        />
         <Spread spread={this.state.spread} />
       </div>
     )

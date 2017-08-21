@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Jam from './components/Jam'
+import LoginForm from './components/LoginForm'
 import './App.css';
 
 const baseUrl = "http://localhost:3000/api/v1"
@@ -8,7 +9,12 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      deck: []
+      deck: [],
+      currentUser: {
+        username: "sarah",
+        id: 2
+      },
+      types: []
     }
   }
 
@@ -18,13 +24,24 @@ class App extends Component {
       .then(json => this.setState({
         deck: json
       }))
+      .then(
+        fetch(`${baseUrl}/types`)
+          .then(resp => resp.json())
+          .then(json => this.setState({
+            types: json
+          })
+        )
+      )
   }
 
   render() {
     return (
       <div className="App">
         {console.log(this.state.deck)}
-        <Jam deck={this.state.deck} url={baseUrl} />
+        <LoginForm />
+        <Jam deck={this.state.deck} types={this.state.types} url={baseUrl}
+        currentUser={this.state.currentUser}
+        />
       </div>
     );
   }
