@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from './Card';
+import Board from './Board';
 
 const Spread = (props) => {
   const cards = props.spread.cards
@@ -13,6 +14,9 @@ const Spread = (props) => {
 
       <div>
       {cardList}
+      </div>
+      <div>
+        <Board />
       </div>
     </div>
   )
