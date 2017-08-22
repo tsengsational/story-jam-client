@@ -4,7 +4,7 @@ import { Button, Form } from 'semantic-ui-react'
 const JamForm = (props) => {
   return(
     <div>
-    <Form onSubmit={} >
+    <Form onSubmit={props.onSubmitJamForm} >
         <Form.Field>
           <label>Jam Name</label>
           <input onChange={props.onChangeJamField} name="name" placeholder='Name' />
@@ -21,7 +21,7 @@ const JamForm = (props) => {
           <label>Spread Description</label>
           <input onChange={props.onChangeSpreadField} name="description" placeholder='Spread Description' />
         </Form.Field>
-        <Form.Select label='Type' options={options} placeholder='Gender' />
+        <Form.Select label='Type' options={props.types} placeholder='Gender' />
         <Button type='submit'>Start Jam</Button>
       </Form>
     </div>
