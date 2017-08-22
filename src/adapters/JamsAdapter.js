@@ -5,4 +5,21 @@ export default class JamsAdapter {
             .then(resp => resp.json())
   }
 
+  static post(data){
+
+    return fetch(`${baseURL}`, {
+      method: "POST",
+      headers: headers(),
+      body: JSON.stringify(data)
+    }).then(resp=>resp.json())
+
+  }
+
+} // end class
+
+function headers () {
+  return {
+    'content-type': 'application/json',
+    'accept': 'application/json',
+  }
 }
