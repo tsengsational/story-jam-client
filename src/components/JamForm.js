@@ -2,6 +2,10 @@ import React from 'react';
 import { Button, Form } from 'semantic-ui-react'
 
 const JamForm = (props) => {
+  console.log(props)
+  const typeNames = props === null ? null : props.types.map((type)=>{
+    return {text: type.type.name, value: type.type.id}
+  })
   return(
     <div>
     <Form onSubmit={props.onSubmitJamForm} >
@@ -21,7 +25,7 @@ const JamForm = (props) => {
           <label>Spread Description</label>
           <input onChange={props.onChangeSpreadField} name="description" placeholder='Spread Description' />
         </Form.Field>
-        <Form.Select label='Type' options={props.types} placeholder='Gender' />
+        <Form.Select label='Type' options={typeNames} placeholder='Select Spread Type' />
         <Button type='submit'>Start Jam</Button>
       </Form>
     </div>
