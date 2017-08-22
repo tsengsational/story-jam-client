@@ -11,21 +11,21 @@ const JamForm = (props) => {
     <Form onSubmit={props.onSubmitJamForm} >
         <Form.Field>
           <label>Jam Name</label>
-          <input onChange={props.onChangeJamField} name="name" placeholder='Name' />
+          <input value={props.jam.name} onChange={props.onChangeJamField} name="name" placeholder='Name' />
         </Form.Field>
         <Form.Field>
           <label>Jam Description</label>
-          <input onChange={props.onChangeJamField} name="description" placeholder='Jam Description' />
+          <input value={props.jam.description} onChange={props.onChangeJamField} name="description" placeholder='Jam Description' />
         </Form.Field>
         <Form.Field>
           <label>Spread Title</label>
-          <input onChange={props.onChangeSpreadField} name="title" placeholder='Spread Description' />
+          <input value={props.spread.title} onChange={props.onChangeSpreadField} name="title" placeholder='Spread Description' />
         </Form.Field>
         <Form.Field>
           <label>Spread Description</label>
-          <input onChange={props.onChangeSpreadField} name="description" placeholder='Spread Description' />
+          <input value={props.spread.description} onChange={props.onChangeSpreadField} name="description" placeholder='Spread Description' />
         </Form.Field>
-        <Form.Select label='Type' options={typeNames} placeholder='Select Spread Type' />
+        <Form.Select label='Type' options={typeNames} name="type_id" placeholder='Select Spread Type' onChange={props.onChangeSpreadField} />
         <Button type='submit'>Start Jam</Button>
       </Form>
     </div>
