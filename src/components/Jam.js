@@ -1,6 +1,7 @@
 import React from 'react'
 import Spread from './Spread'
 import JamForm from './JamForm'
+import JamsAdapter from '../adapters/JamsAdapter'
 
 export default class Jam extends React.Component {
   constructor(props){
@@ -20,8 +21,7 @@ export default class Jam extends React.Component {
   componentWillReceiveProps(nextProps){
     // TODO make numCards come from props based on type from db
     if (this.props !== nextProps) {
-      fetch(`${nextProps.url}/jams/1`)
-        .then(resp => resp.json())
+      JamsAdapter.show(1) // this.props.currentUser.id
         .then(json => this.setState({
           jam: json["jam"],
           spread: {

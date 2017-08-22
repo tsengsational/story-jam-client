@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Jam from './components/Jam'
 import LoginForm from './components/LoginForm'
+import Navbar from './components/Navbar'
+import CardsAdapter from './adapters/CardsAdapter'
+import TypesAdapter from './adapters/TypesAdapter'
 import './App.css';
-
-const baseUrl = "http://localhost:3000/api/v1"
 
 class App extends Component {
   constructor(){
@@ -19,17 +20,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(`${baseUrl}/cards`)
-      .then(resp => resp.json())
+    CardsAdapter.index()
       .then(json => this.setState({
         deck: json
       }))
       .then(
-        fetch(`${baseUrl}/types`)
-          .then(resp => resp.json())
+        TypesAdapter.index()
           .then(json => this.setState({
             types: json
-          })
+          }, ()=>{console.log(this.state.types)})
         )
       )
   }
@@ -38,8 +37,9 @@ class App extends Component {
     return (
       <div className="App">
         {console.log(this.state.deck)}
+        <Navbar />
         <LoginForm />
-        <Jam deck={this.state.deck} types={this.state.types} url={baseUrl}
+        <Jam deck={this.state.deck} types={this.state.types}
         currentUser={this.state.currentUser}
         />
       </div>
