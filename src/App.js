@@ -3,7 +3,6 @@ import Jam from './components/Jam'
 import LoginForm from './components/LoginForm'
 import Navbar from './components/Navbar'
 import JamForm from './components/JamForm'
-import StoryForm from './components/StoryForm'
 import JamsAdapter from './adapters/JamsAdapter'
 import CardsAdapter from './adapters/CardsAdapter'
 import TypesAdapter from './adapters/TypesAdapter'
@@ -99,9 +98,9 @@ class App extends Component {
   onSubmitStoryForm = (event) => {
     event.preventDefault()
     const data = {story: {
-      name: this.state.story.title,
+      title: this.state.story.title,
       content: this.state.story.content,
-      // TODO add id from currentJam and currentUser
+      jam: {id: this.state.currentJam.jam.id}
     } }
     console.log(data)
     StoriesAdapter.post(data)

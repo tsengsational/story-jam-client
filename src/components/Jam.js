@@ -28,7 +28,8 @@ export default class Jam extends React.Component {
         <Spread spread={this.state.currentJam.spread} types={this.props.types} />
         <div>
           <StoryForm
-          jam={this.state.currentJam}
+          jam={this.props.currentJam}
+          user={this.props.currentUser}
           story={this.props.story}
           onChangeStoryField={this.props.onChangeStoryField}
           onSubmitStoryForm={this.onSubmitStoryForm}
@@ -37,6 +38,8 @@ export default class Jam extends React.Component {
         <div>
         <h3> Current Stories </h3>
           <StoryContainer
+          currentUser={this.props.currentUser}
+          currentJam={this.props.currentJam}
           story={this.props.story}
           onChangeStoryField={this.props.onChangeStoryField}
           />
