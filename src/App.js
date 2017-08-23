@@ -110,13 +110,23 @@ class App extends Component {
     })
   }
 
+  onSubmitLoginForm = (event, history) => {
+    event.preventDefault()
+
+    
+      .then(json => {this.setState({
+
+      }, ()=>{history.push(`/users/${this.state.currentUser.id}` )})}
+    )
+  }
+
   render() {
     return (
       <div className="App">
         {console.log(this.state.deck)}
         <Navbar currentUser={this.state.currentUser} />
         <Switch>
-          <Route exact path='/login' component={LoginForm} />
+          <Route exact path='/login' render={(props)=>{<LoginForm history={props.history} onSubmitLoginForm={this.onSubmitLoginForm} />} } />
           <Route exact path='/jams/new' render={(props)=>{
             return  <JamForm
             history={props.history}
@@ -129,7 +139,7 @@ class App extends Component {
             />}
           } />
           <Route exact path='/jams/:id' render={()=>{
-            return <Jam types={this.state.types}
+            return <Jam history={props.history} types={this.state.types}
             currentUser={this.state.currentUser}
             currentJam={this.state.currentJam}
             story={this.state.story}

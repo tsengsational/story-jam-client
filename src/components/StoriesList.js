@@ -1,6 +1,6 @@
 import React from 'react';
 
-const JamsList = (props) => {
+const StoriesList = (props) => {
 
   return (
 
