@@ -13,6 +13,7 @@ const Spread = (props) => {
       <div>
         <Board type={type} board={props.spread.board}/>
       </div>
+    </div>
     )
   } else {
     return (

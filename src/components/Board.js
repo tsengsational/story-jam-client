@@ -5,7 +5,7 @@ import Card from './Card';
 const Board = (props) => {
 
   return (
-    <Grid celled columns='equal'>
+    <Grid columns='equal'>
       <Grid.Row className="js-row-1">
         <Grid.Column>
           <Card card={props.board[0]}/>

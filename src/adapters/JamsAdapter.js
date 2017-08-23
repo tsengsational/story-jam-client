@@ -15,6 +15,16 @@ export default class JamsAdapter {
 
   }
 
+  static patch(data){
+
+    return fetch(`${baseURL}`, {
+      method: "PATCH",
+      headers: headers(),
+      body: JSON.stringify(data)
+    }).then(resp=>resp.json())
+
+  }
+
 } // end class
 
 function headers () {

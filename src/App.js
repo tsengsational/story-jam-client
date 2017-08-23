@@ -8,6 +8,7 @@ import CardsAdapter from './adapters/CardsAdapter'
 import TypesAdapter from './adapters/TypesAdapter'
 import StoriesAdapter from './adapters/StoriesAdapter'
 import './App.css';
+import { Route, Switch } from 'react-router-dom'
 
 class App extends Component {
   constructor(){
@@ -82,15 +83,18 @@ class App extends Component {
 
   onSubmitJamForm = (event) => {
     event.preventDefault()
+
     const data = {jam: {
       name: this.state.jam.name,
       description: this.state.jam.description,
       spread: this.state.spread
     } }
     console.log(data)
+
     JamsAdapter.post(data)
       .then((json)=>{this.setState({
         currentJam: json
+
       })
     })
   }
@@ -114,22 +118,28 @@ class App extends Component {
     return (
       <div className="App">
         {console.log(this.state.deck)}
-        <Navbar />
-        <LoginForm />
-        <JamForm
-        jam={this.state.jam}
-        spread={this.state.spread}
-        onChangeJamField={this.onChangeJamField}
-        onChangeSpreadField={this.onChangeSpreadField}
-        onSubmitJamForm={this.onSubmitJamForm}
-        types={this.state.types}
-        />
-        <Jam types={this.state.types}
-        currentUser={this.state.currentUser}
-        currentJam={this.state.currentJam}
-        story={this.state.story}
-        onChangeStoryField={this.onChangeStoryField}
-        />
+        <Navbar currentUser={this.state.currentUser} />
+        <Switch>
+          <Route exact path='/login' component={LoginForm} />
+          <Route exact path='/jams/new' render={()=>{
+            return  <JamForm
+            jam={this.state.jam}
+            spread={this.state.spread}
+            onChangeJamField={this.onChangeJamField}
+            onChangeSpreadField={this.onChangeSpreadField}
+            onSubmitJamForm={this.onSubmitJamForm}
+            types={this.state.types}
+            />}
+          } />
+          <Route exact path='/jams/:id' render={()=>{
+            return <Jam types={this.state.types}
+            currentUser={this.state.currentUser}
+            currentJam={this.state.currentJam}
+            story={this.state.story}
+            onChangeStoryField={this.onChangeStoryField}
+            />
+          }} />
+        </Switch>
       </div>
     );
   }
