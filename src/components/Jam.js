@@ -25,14 +25,14 @@ export default class Jam extends React.Component {
 
     return(
       <div>
-        <Spread spread={this.state.currentJam.spread} types={this.props.types} />
+        <Spread spread={this.props.currentJam.spread} types={this.props.types} />
         <div>
           <StoryForm
           jam={this.props.currentJam}
           user={this.props.currentUser}
           story={this.props.story}
           onChangeStoryField={this.props.onChangeStoryField}
-          onSubmitStoryForm={this.onSubmitStoryForm}
+          onSubmitStoryForm={this.props.onSubmitStoryForm}
           />
         </div>
         <div>

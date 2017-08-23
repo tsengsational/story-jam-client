@@ -7,11 +7,17 @@ const JamForm = (props) => {
     return {text: type.type.name, value: type.type.id}
   })
 
+  const history = props.history
+
+  const handleSubmit = (event) => {
+    props.onSubmitJamForm(event, props.history)
+  }
+
   return(
     <div>
       <Grid centered columns={2}>
         <Grid.Column>
-          <Form onSubmit={props.onSubmitJamForm} >
+          <Form onSubmit={handleSubmit} >
             <Form.Group widths='equal'>
               <Form.Field>
                 <label>Jam Name</label>

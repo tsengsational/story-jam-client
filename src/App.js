@@ -74,8 +74,9 @@ class App extends Component {
     }, ()=>{console.log(this.state)})
   }
 
-  onSubmitJamForm = (event) => {
+  onSubmitJamForm = (event, history) => {
     event.preventDefault()
+    console.log(event, history)
 
     const data = {jam: {
       name: this.state.jam.name,
@@ -88,7 +89,8 @@ class App extends Component {
         currentJam: json
 
       },
-      () => {console.log(this.state)}
+      () => {history.push(`/jams/${this.state.currentJam.jam.id}`)
+        console.log(this.state, history)}
     )
     })
   }
@@ -115,8 +117,9 @@ class App extends Component {
         <Navbar currentUser={this.state.currentUser} />
         <Switch>
           <Route exact path='/login' component={LoginForm} />
-          <Route exact path='/jams/new' render={()=>{
+          <Route exact path='/jams/new' render={(props)=>{
             return  <JamForm
+            history={props.history}
             jam={this.state.jam}
             spread={this.state.spread}
             onChangeJamField={this.onChangeJamField}
