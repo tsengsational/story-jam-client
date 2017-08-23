@@ -6,6 +6,7 @@ import JamForm from './components/JamForm'
 import JamsAdapter from './adapters/JamsAdapter'
 import TypesAdapter from './adapters/TypesAdapter'
 import StoriesAdapter from './adapters/StoriesAdapter'
+import UsersAdapter from './adapters/UsersAdapter'
 import './App.css';
 import { Route, Switch } from 'react-router-dom'
 
@@ -32,7 +33,10 @@ class App extends Component {
         content: ''
       },
       currentJam: {},
-      currentStory: {}
+      currentStory: {},
+      login: {
+        username: ''
+      }
     }
   }
 
@@ -73,6 +77,15 @@ class App extends Component {
     }, ()=>{console.log(this.state)})
   }
 
+  onChangeLoginField = (event) => {
+    this.setState({
+      login: {
+        ...this.state.login,
+        [event.target.name]: event.target.value
+      }
+    }, ()=>{console.log(this.state)})
+  }
+
   onSubmitJamForm = (event, history) => {
     event.preventDefault()
     console.log(event, history)
@@ -86,7 +99,6 @@ class App extends Component {
     JamsAdapter.post(data)
       .then((json)=>{this.setState({
         currentJam: json
-
       },
       () => {history.push(`/jams/${this.state.currentJam.jam.id}`)
         console.log(this.state, history)}
@@ -113,12 +125,26 @@ class App extends Component {
     })
   }
 
+  onSubmitLoginForm = (event, history) => {
+    event.preventDefault()
+
+    UsersAdapter.show()
+      .then(json => {this.setState({
+        currenUser: json
+      }, ()=>{
+        history.push(`/users/${this.state.currentUser.id}`)
+        console.log(this.state)
+    })
+      }
+    )
+  }
+
   render() {
     return (
       <div className="App">
         <Navbar currentUser={this.state.currentUser} />
         <Switch>
-          <Route exact path='/login' component={LoginForm} />
+          <Route exact path='/login' render={(props)=>{return <LoginForm onChangeLoginField={this.onChangeLoginField} history={props.history} onSubmitLoginForm={this.onSubmitLoginForm} />} } />
           <Route exact path='/jams/new' render={(props)=>{
             return  <JamForm
             history={props.history}
@@ -130,8 +156,8 @@ class App extends Component {
             types={this.state.types}
             />}
           } />
-          <Route exact path='/jams/:id' render={()=>{
-            return <Jam types={this.state.types}
+          <Route exact path='/jams/:id' render={(props)=>{
+            return <Jam history={props.history} types={this.state.types}
             currentUser={this.state.currentUser}
             currentJam={this.state.currentJam}
             story={this.state.story}
