@@ -14,7 +14,6 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      deck: [],
       currentUser: {
         username: "sarah",
         id: 2
@@ -39,17 +38,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    CardsAdapter.index()
+    TypesAdapter.index()
       .then(json => this.setState({
-        deck: json
-      }))
-      .then(
-        TypesAdapter.index()
-          .then(json => this.setState({
-            types: json
-          }, ()=>{console.log(this.state.types)})
-        )
-      )
+        types: json
+      }, ()=>{console.log(this.state.types)})
+    )
   }
 
   onChangeJamField = (event) => {
@@ -89,13 +82,14 @@ class App extends Component {
       description: this.state.jam.description,
       spread: this.state.spread
     } }
-    console.log(data)
 
     JamsAdapter.post(data)
       .then((json)=>{this.setState({
         currentJam: json
 
-      })
+      },
+      () => {console.log(this.state)}
+    )
     })
   }
 
@@ -106,7 +100,7 @@ class App extends Component {
       content: this.state.story.content,
       jam: {id: this.state.currentJam.jam.id}
     } }
-    console.log(data)
+
     StoriesAdapter.post(data)
       .then((json)=>{this.setState({
         currentStory: json

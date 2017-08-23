@@ -10,6 +10,7 @@ export default class StoryContainer extends React.Component {
   // NOTE discuss author alias etc
 
   render(){
+    console.log(this.props)
 
     return(
       <div>

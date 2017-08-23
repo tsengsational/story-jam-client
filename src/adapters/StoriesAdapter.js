@@ -6,6 +6,7 @@ export default class StoriesAdapter {
   }
 
   static post(data){
+    console.log(data)
 
     return fetch(`${baseURL}`, {
       method: "POST",
