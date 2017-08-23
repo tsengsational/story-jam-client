@@ -1,6 +1,7 @@
 const baseURL="http://localhost:3000/api/v1/stories"
 export default class StoriesAdapter {
-  static show(id){
+
+  static get(id){
     return fetch(`${baseURL}/${id}`)
             .then(resp => resp.json())
   }

@@ -4,7 +4,6 @@ import LoginForm from './components/LoginForm'
 import Navbar from './components/Navbar'
 import JamForm from './components/JamForm'
 import JamsAdapter from './adapters/JamsAdapter'
-import CardsAdapter from './adapters/CardsAdapter'
 import TypesAdapter from './adapters/TypesAdapter'
 import StoriesAdapter from './adapters/StoriesAdapter'
 import './App.css';
@@ -100,20 +99,23 @@ class App extends Component {
     const data = {story: {
       title: this.state.story.title,
       content: this.state.story.content,
-      jam: {id: this.state.currentJam.jam.id}
-    } }
+      jam_id: this.state.currentJam.jam.id}
+    }
 
     StoriesAdapter.post(data)
-      .then((json)=>{this.setState({
-        currentStory: json
-      })
+      .then((json)=>{console.log(json, this.state)
+        this.setState({
+        currentJam: json.jam,
+        currentStory: json.story
+      },
+      () => {console.log(this.state)}
+    )
     })
   }
 
   render() {
     return (
       <div className="App">
-        {console.log(this.state.deck)}
         <Navbar currentUser={this.state.currentUser} />
         <Switch>
           <Route exact path='/login' component={LoginForm} />
@@ -134,6 +136,7 @@ class App extends Component {
             currentJam={this.state.currentJam}
             story={this.state.story}
             onChangeStoryField={this.onChangeStoryField}
+            onSubmitStoryForm={this.onSubmitStoryForm}
             />
           }} />
         </Switch>
