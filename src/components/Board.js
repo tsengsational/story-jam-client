@@ -3,101 +3,73 @@ import { Grid } from 'semantic-ui-react';
 import Card from './Card';
 
 const Board = (props) => {
-  const cardPositions = {
-    '0': null,
-    '1': { flipped: true, data: {
-      id: 1,
-      name: 'The Fan',
-      description: 'This person deeply admires someone and seeks every change to sing his or her praises.',
-      flipped_name: 'The Secret Admirer',
-      flipped_description: 'This person keeps to the shadows, either too shy to publicly admit his or her adoration or because the attention may be unwelcome.',
-      image_url: '',
-      flipped_image_url:'',
-      category_id: 1
-    }},
-    '2': null,
-    '3': null,
-    '4': {flipped: false, data: {
-      id: 3,
-      name: 'The Relative',
-      description: 'Whether making soup for the ill or providing a shoulder to cry on, nobody understands or cares like family.',
-      flipped_name: 'Meddler',
-      flipped_description: 'Even the most genuinely concerned relative can be too eager to assist. This help may be unwelcome or driven by selfish motives',
-      image_url:'',
-      flipped_image_url:'',
-      category_id: 2
-    }},
-    '5': null,
-    '6': null,
-    '7': null,
-    '8': null,
-    '9': {flipped: true, data: {
-      id: 5,
-      name: 'The Monster',
-      description: 'Raw, unthinking destruction, chaos made flesh. This is the bogeyman, the ripper, the source of all fears and nightmares',
-      flipped_name: 'The Wolf',
-      flipped_description: `Sometimes the Monster is cloaked in a perfectly mundane guise, easily mistaken for one of the sheep. That doesn't make it any less dangerous`,
-      image_url:'',
-      flipped_image_url:'',
-      category_id: 3
-    }},
-    '10': null,
-    '11': null,
-    '12': null,
-    '13': null,
-    '14': null,
-  }
+
   return (
     <Grid celled columns='equal'>
       <Grid.Row className="js-row-1">
         <Grid.Column>
-          <Card card={cardPositions[0]}/>
+          <Card card={props.board[0]}/>
+          <Card card={props.board['A']}/>
         </Grid.Column>
         <Grid.Column>
-          <Card card={cardPositions[1]}/>
+          <Card card={props.board[1]}/>
+          <Card card={props.board['B']}/>
         </Grid.Column>
         <Grid.Column>
-          <Card card={cardPositions[2]}/>
+          <Card card={props.board[2]}/>
+          <Card card={props.board['C']}/>
         </Grid.Column>
         <Grid.Column>
-          <Card card={cardPositions[3]}/>
+          <Card card={props.board[3]}/>
+          <Card card={props.board['D']}/>
         </Grid.Column>
         <Grid.Column>
-          <Card card={cardPositions[4]}/>
+          <Card card={props.board[4]}/>
+          <Card card={props.board['E']}/>
         </Grid.Column>
       </Grid.Row>
       <Grid.Row className="js-row-2">
         <Grid.Column>
-          <Card card={cardPositions[5]}/>
+          <Card card={props.board[5]}/>
+          <Card card={props.board['F']}/>
         </Grid.Column>
         <Grid.Column>
-          <Card card={cardPositions[6]}/>
+          <Card card={props.board[6]}/>
+          <Card card={props.board['G']}/>
         </Grid.Column>
         <Grid.Column>
-          <Card card={cardPositions[7]}/>
+          <Card card={props.board[7]}/>
+          <Card card={props.board['H']}/>
         </Grid.Column>
         <Grid.Column>
-          <Card card={cardPositions[8]}/>
+          <Card card={props.board[8]}/>
+          <Card card={props.board['I']}/>
         </Grid.Column>
         <Grid.Column>
-          <Card card={cardPositions[9]}/>
+          <Card card={props.board[9]}/>
+          <Card card={props.board['J']}/>
         </Grid.Column>
       </Grid.Row>
       <Grid.Row className="js-row-3">
         <Grid.Column>
-          <Card card={cardPositions[10]}/>
+          <Card card={props.board[10]}/>
+          <Card card={props.board['K']}/>
         </Grid.Column>
         <Grid.Column>
-          <Card card={cardPositions[11]}/>
+          <Card card={props.board[11]}/>
+          <Card card={props.board['L']}/>
         </Grid.Column>
         <Grid.Column>
-          <Card card={cardPositions[12]}/>
+          <Card card={props.board[12]}/>
+          <Card card={props.board['M']}/>
         </Grid.Column>
         <Grid.Column>
-          <Card card={cardPositions[13]}/>
+          <Card card={props.board[13]}/>
+          <Card card={props.board['N']}/>
         </Grid.Column>
         <Grid.Column>
-          <Card card={cardPositions[14]}/>
+          <Card card={props.board[14]}/>
+          <Card card={props.board['O']}/>
         </Grid.Column>
       </Grid.Row>
     </Grid>
