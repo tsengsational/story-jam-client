@@ -4,9 +4,9 @@ import LoginForm from './components/LoginForm'
 import Navbar from './components/Navbar'
 import JamForm from './components/JamForm'
 import JamsAdapter from './adapters/JamsAdapter'
-import CardsAdapter from './adapters/CardsAdapter'
 import TypesAdapter from './adapters/TypesAdapter'
 import StoriesAdapter from './adapters/StoriesAdapter'
+import UsersAdapter from './adapters/UsersAdapter'
 import './App.css';
 import { Route, Switch } from 'react-router-dom'
 
@@ -33,7 +33,10 @@ class App extends Component {
         content: ''
       },
       currentJam: {},
-      currentStory: {}
+      currentStory: {},
+      login: {
+        username: ''
+      }
     }
   }
 
@@ -74,6 +77,15 @@ class App extends Component {
     }, ()=>{console.log(this.state)})
   }
 
+  onChangeLoginField = (event) => {
+    this.setState({
+      login: {
+        ...this.state.login,
+        [event.target.name]: event.target.value
+      }
+    }, ()=>{console.log(this.state)})
+  }
+
   onSubmitJamForm = (event, history) => {
     event.preventDefault()
     console.log(event, history)
@@ -87,7 +99,6 @@ class App extends Component {
     JamsAdapter.post(data)
       .then((json)=>{this.setState({
         currentJam: json
-
       },
       () => {history.push(`/jams/${this.state.currentJam.jam.id}`)
         console.log(this.state, history)}
@@ -100,20 +111,38 @@ class App extends Component {
     const data = {story: {
       title: this.state.story.title,
       content: this.state.story.content,
-      jam: {id: this.state.currentJam.jam.id}
-    } }
+      jam_id: this.state.currentJam.jam.id}
+    }
 
     StoriesAdapter.post(data)
-      .then((json)=>{this.setState({
-        currentStory: json
-      })
+      .then((json)=>{console.log(json, this.state)
+        this.setState({
+        currentJam: json.jam,
+        currentStory: json.story
+      },
+      () => {console.log(this.state)}
+    )
     })
   }
 
   onSubmitLoginForm = (event, history) => {
     event.preventDefault()
 
-    
+    UsersAdapter.show()
+      .then(json => {this.setState({
+        currenUser: json
+      }, ()=>{
+        history.push(`/users/${this.state.currentUser.id}`)
+        console.log(this.state)
+    })
+      }
+    )
+  }
+
+  onSubmitLoginForm = (event, history) => {
+    event.preventDefault()
+
+
       .then(json => {this.setState({
 
       }, ()=>{history.push(`/users/${this.state.currentUser.id}` )})}
@@ -123,10 +152,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {console.log(this.state.deck)}
         <Navbar currentUser={this.state.currentUser} />
         <Switch>
-          <Route exact path='/login' render={(props)=>{<LoginForm history={props.history} onSubmitLoginForm={this.onSubmitLoginForm} />} } />
+          <Route exact path='/login' render={(props)=>{return <LoginForm onChangeLoginField={this.onChangeLoginField} history={props.history} onSubmitLoginForm={this.onSubmitLoginForm} />} } />
           <Route exact path='/jams/new' render={(props)=>{
             return  <JamForm
             history={props.history}
@@ -138,12 +166,13 @@ class App extends Component {
             types={this.state.types}
             />}
           } />
-          <Route exact path='/jams/:id' render={()=>{
+          <Route exact path='/jams/:id' render={(props)=>{
             return <Jam history={props.history} types={this.state.types}
             currentUser={this.state.currentUser}
             currentJam={this.state.currentJam}
             story={this.state.story}
             onChangeStoryField={this.onChangeStoryField}
+            onSubmitStoryForm={this.onSubmitStoryForm}
             />
           }} />
         </Switch>

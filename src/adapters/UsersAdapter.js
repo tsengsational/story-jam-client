@@ -10,6 +10,11 @@ export default class UsersAdapter {
     }).then(resp=>resp.json())
   }
 
+  static show(id){
+    return fetch(`${baseURL}/${id}`)
+      .then(resp => resp.json())
+  }
+
   static patch(data){
     return fetch(`${baseURL}`, {
       method: "PATCH",
