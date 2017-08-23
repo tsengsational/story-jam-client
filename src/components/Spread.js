@@ -1,12 +1,7 @@
 import React from 'react';
-// import Card from './Card';
 import Board from './Board';
-// const type = (props) => {
-//   return props.types.find((type)=>{return props.spread.type.id === type.type.id})
-// }
+
 const Spread = (props) => {
-  // const cards = props.spread.cards
-  // const cardList = cards.map((card) => {return <div><Card card={card} /></div>} )
 
   if(props.spread){
     const type = props.types.find((type)=>{return props.spread.type.id === type.type.id})
@@ -18,8 +13,8 @@ const Spread = (props) => {
       <div>
         <Board type={type} board={props.spread.board}/>
       </div>
-    </div>
-  )} else {
+    )
+  } else {
     return (
       <div></div>
     )

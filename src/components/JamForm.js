@@ -2,10 +2,11 @@ import React from 'react';
 import { Button, Form, Grid } from 'semantic-ui-react'
 
 const JamForm = (props) => {
-  console.log(props)
+
   const typeNames = props === null ? null : props.types.map((type)=>{
     return {text: type.type.name, value: type.type.id}
   })
+
   return(
     <div>
       <Grid centered columns={2}>

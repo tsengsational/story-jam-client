@@ -6,6 +6,7 @@ import JamForm from './components/JamForm'
 import JamsAdapter from './adapters/JamsAdapter'
 import CardsAdapter from './adapters/CardsAdapter'
 import TypesAdapter from './adapters/TypesAdapter'
+import StoriesAdapter from './adapters/StoriesAdapter'
 import './App.css';
 
 class App extends Component {
@@ -27,7 +28,12 @@ class App extends Component {
         name: '',
         description: ''
       },
-      currentJam: {}
+      story: {
+        title: '',
+        content: ''
+      },
+      currentJam: {},
+      currentStory: {}
     }
   }
 
@@ -65,6 +71,15 @@ class App extends Component {
     }, ()=>{console.log(this.state)})
   }
 
+  onChangeStoryField = (event) => {
+    this.setState({
+      story: {
+        ...this.state.story,
+        [event.target.name]: event.target.value
+      }
+    }, ()=>{console.log(this.state)})
+  }
+
   onSubmitJamForm = (event) => {
     event.preventDefault()
     const data = {jam: {
@@ -76,6 +91,21 @@ class App extends Component {
     JamsAdapter.post(data)
       .then((json)=>{this.setState({
         currentJam: json
+      })
+    })
+  }
+
+  onSubmitStoryForm = (event) => {
+    event.preventDefault()
+    const data = {story: {
+      title: this.state.story.title,
+      content: this.state.story.content,
+      jam: {id: this.state.currentJam.jam.id}
+    } }
+    console.log(data)
+    StoriesAdapter.post(data)
+      .then((json)=>{this.setState({
+        currentStory: json
       })
     })
   }
@@ -97,6 +127,8 @@ class App extends Component {
         <Jam types={this.state.types}
         currentUser={this.state.currentUser}
         currentJam={this.state.currentJam}
+        story={this.state.story}
+        onChangeStoryField={this.onChangeStoryField}
         />
       </div>
     );
