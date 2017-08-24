@@ -13,7 +13,9 @@ export default class StoryContainer extends React.Component {
   list = () => {
 
    return this.props.currentJam.stories.map((story) => {return (
+      <Grid.Column>
         <Story story={story} onChangeStoryField={story} />
+      </Grid.Column>
       )
     })
   }
@@ -24,8 +26,12 @@ export default class StoryContainer extends React.Component {
       <div>
         <div>
           <h3>Stories In This Jam</h3>
+          <Grid columns={4}>
             {this.props.currentJam.stories ? this.list() : null}
+          </Grid>
         </div>
+        <br/>
+        <br/>
         <div>
           <StoryForm
           jam={this.props.currentJam}
