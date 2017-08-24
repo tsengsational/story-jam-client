@@ -5,14 +5,8 @@ const Story = (props) => {
 
   return(
     <div>
-      <h3>{props ? props.story.title : null}</h3>
-      <div>
-        <Form>
-          <Form.TextArea value={props.story.content} onChange={props.onChangeStoryField} name="content"
-          placeholder='Your story is waiting for you...'>
-          </Form.TextArea>
-        </Form>
-      </div>
+      <h4>{props ? props.story.title : null}</h4>
+        {props.story.content}
     </div>
   )
 }

@@ -10,9 +10,11 @@ const StoryForm = (props) => {
 
         <Form.Field>
           <label>Story Title</label>
-          <input value={props.story.title} onChange={props.onChangeStoryField} name="title" placeholder='Title' />
+          <input value={props.fields.title} onChange={props.onChangeStoryField} name="title" placeholder='Title' />
         </Form.Field>
-        <Form.TextArea value={props.story.content} onChange={props.onChangeStoryField} name="content"
+
+        
+        <Form.TextArea value={props.fields.content} onChange={props.onChangeStoryField} name="content"
         placeholder='Start your story here...'>
         </Form.TextArea>
         <Button type='submit'>Start New Story</Button>

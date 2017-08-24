@@ -27,7 +27,7 @@ export default class JamsAdapter {
 
   }
 
-} // end class
+}
 
 function headers () {
   return {

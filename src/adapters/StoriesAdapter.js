@@ -17,7 +17,7 @@ export default class StoriesAdapter {
 
   }
 
-} // end class
+} 
 
 function headers () {
   return {

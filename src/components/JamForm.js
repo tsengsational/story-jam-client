@@ -7,8 +7,6 @@ const JamForm = (props) => {
     return {text: type.type.name, value: type.type.id}
   })
 
-  const history = props.history
-
   const handleSubmit = (event) => {
     props.onSubmitJamForm(event, props.history)
   }
