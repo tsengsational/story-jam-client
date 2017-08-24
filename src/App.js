@@ -94,6 +94,16 @@ class App extends Component {
     })
   }
 
+  onLoadJam = (id) => {
+    JamsAdapter.get(id)
+      .then((json) =>  {this.setState({
+            currentJam: json
+          }, () => {console.log("load jam", this.state)}
+        )
+      }
+    )
+  }
+
   onSubmitStoryForm = (event) => {
     event.preventDefault()
     const data = {story: {
@@ -106,7 +116,12 @@ class App extends Component {
       .then((json)=>{console.log(json, this.state)
         this.setState({
         currentJam: json.jam,
-        currentStory: json.story
+        currentStory: json.story,
+        story: {
+          ...this.state.story,
+          title: '',
+          content: ''
+        }
       },
       () => {console.log(this.state)}
     )
@@ -130,11 +145,15 @@ class App extends Component {
             types={this.state.types}
             />}
           } />
-          <Route exact path='/jams/:id' render={()=>{
+          <Route exact path='/jams/:id' render={(props)=>{
+
             return <Jam types={this.state.types}
+            match={props.match}
             currentUser={this.state.currentUser}
             currentJam={this.state.currentJam}
-            story={this.state.story}
+            storyFields={this.state.story}
+            currentStory={this.state.currentStory}
+            onLoadJam={this.onLoadJam}
             onChangeStoryField={this.onChangeStoryField}
             onSubmitStoryForm={this.onSubmitStoryForm}
             />
