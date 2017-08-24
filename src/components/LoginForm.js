@@ -3,9 +3,10 @@ import { Button, Form, Grid } from 'semantic-ui-react'
 
 const LoginForm = (props) => {
 
+
   const handleSubmit = (event) => {
-    debugger
     props.onSubmitLoginForm(event, props.history)
+
   }
 
   return(
@@ -13,9 +14,13 @@ const LoginForm = (props) => {
       <Grid centered columns={2}>
         <Grid.Column>
           <Form onSubmit={handleSubmit} >
-            <Form.Field name="Username" onChange={props.onChangeLoginField}>
+            <Form.Field name="username" onChange={props.onChangeLoginField}>
               <label>Username</label>
-              <input placeholder='Username' />
+              <input name="username" placeholder='Username' />
+            </Form.Field>
+            <Form.Field name="password" onChange={props.onChangeLoginField}>
+              <label>Password</label>
+              <input name="password" type="password" placeholder='Password' />
             </Form.Field>
             <Button type='submit'>Submit</Button>
           </Form>

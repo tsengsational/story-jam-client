@@ -6,6 +6,7 @@ import JamForm from './components/JamForm'
 import JamsAdapter from './adapters/JamsAdapter'
 import TypesAdapter from './adapters/TypesAdapter'
 import StoriesAdapter from './adapters/StoriesAdapter'
+import Auth from './adapters/AuthAdapter'
 import UsersAdapter from './adapters/UsersAdapter'
 import './App.css';
 import { Route, Switch } from 'react-router-dom'
@@ -17,6 +18,13 @@ class App extends Component {
       currentUser: {
         username: "sarah",
         id: 2
+      },
+      auth: {
+        isLoggedIn: false,
+        user: {
+          username: "",
+          id: 0
+        }
       },
       types: [],
       spread: {
@@ -35,10 +43,28 @@ class App extends Component {
       currentJam: {},
       currentStory: {},
       login: {
-        username: ''
+        username: '',
+        password: ''
       }
     }
   }
+
+  componentWillMount(){
+      if (localStorage.getItem('jwt')) {
+       Auth.currentUser()
+         .then(user => {
+           if (!user.error) {
+             console.log("fetch user");
+             this.setState({
+               auth: {
+                 isLoggedIn: true,
+                 user: user
+               }
+             })
+           }
+         })
+     }
+   }
 
   componentDidMount() {
     TypesAdapter.index()
@@ -127,22 +153,39 @@ class App extends Component {
 
   onSubmitLoginForm = (event, history) => {
     event.preventDefault()
+    const username = this.state.login.username
+    const password = this.state.login.password
+    const loginParams = {
+      username: username,
+      password: password
+    }
+    this.logIn(loginParams)
+      .then(json => {        history.push(`/users/${this.state.currentUser.id}`)
+      })
+    }
 
-    UsersAdapter.show()
-      .then(json => {this.setState({
-        currenUser: json
-      }, ()=>{
-        history.push(`/users/${this.state.currentUser.id}`)
-        console.log(this.state)
-    })
-      }
-    )
+  logIn = (loginParams) => {
+    return (Auth.login(loginParams)
+      .then( user => {
+        console.log(user)
+        if (!user.error) {
+          this.setState({
+            auth: { isLoggedIn: true, user: user}
+          })
+          localStorage.setItem('jwt', user.jwt )
+        }
+      }) )
+  }
+
+  logout = () => {
+    localStorage.removeItem('jwt')
+    this.setState({ auth: { isLoggedIn: false, user:{}}})
   }
 
   render() {
     return (
       <div className="App">
-        <Navbar currentUser={this.state.currentUser} />
+        <Navbar logout={this.logout} currentUser={this.state.auth} />
         <Switch>
           <Route exact path='/login' render={(props)=>{return <LoginForm onChangeLoginField={this.onChangeLoginField} history={props.history} onSubmitLoginForm={this.onSubmitLoginForm} />} } />
           <Route exact path='/jams/new' render={(props)=>{

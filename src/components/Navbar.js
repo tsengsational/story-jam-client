@@ -7,10 +7,14 @@ export default class Navbar extends Component {
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
+  handleLogoutClick = (e, { name }) => {
+
+  }
+
 
   render() {
     const { activeItem } = this.state
-    const id = "/jams/" + this.props.currentUser.id.toString()
+
 
     return (
       <Segment inverted>
@@ -26,7 +30,7 @@ export default class Navbar extends Component {
             </NavLink>
           </Menu.Item>
           <Menu.Item name='Dashboard' active={activeItem === 'Dashboard'} onClick={this.handleItemClick}>
-            <NavLink to={id}>
+            <NavLink to="/jams/1">
               Dashboard
             </NavLink>
           </Menu.Item>
@@ -35,12 +39,14 @@ export default class Navbar extends Component {
               Log In
             </NavLink>
           </Menu.Item>
+          <Menu.Item name='logout' active={activeItem === 'logout'} onClick={this.props.logout}>
+              Log Out
+          </Menu.Item>
           <Menu.Item name='New Jam' active={activeItem === 'New Jam'} onClick={this.handleItemClick}>
             <NavLink to='/jams/new'>
               New Jam
             </NavLink>
           </Menu.Item>
-
         </Menu>
       </Segment>
     )
