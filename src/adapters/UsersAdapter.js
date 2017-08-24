@@ -30,5 +30,7 @@ function headers () {
   return {
     'content-type': 'application/json',
     'accept': 'application/json',
+    'Authorization': "Bearer " + localStorage.getItem('jwt')
+
   }
 }
